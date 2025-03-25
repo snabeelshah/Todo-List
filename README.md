@@ -1,2 +1,5 @@
-# TodoEst
-Make your Tasks EZYYYYYY
+<<<<<<< HEAD
+Your local changes
+=======
+Remote changes
+>>>>>>> commit-hash
