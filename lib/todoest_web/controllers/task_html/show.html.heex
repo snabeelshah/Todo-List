@@ -1,0 +1,35 @@
+﻿<div class="max-w-md mx-auto mt-8">
+  <h1 class="text-2xl font-bold mb-4">Task Details</h1>
+
+  <div class="bg-white shadow rounded-lg p-6">
+    <div class="mb-4">
+      <h2 class="text-lg font-semibold"><%= @task.title %></h2>
+      <p class="text-gray-600"><%= @task.description %></p>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div>
+        <span class="font-medium">Status:</span>
+        <%= if @task.completed do %>
+          <span class="text-green-500">Completed</span>
+        <% else %>
+          <span class="text-yellow-500">Pending</span>
+        <% end %>
+      </div>
+
+      <div>
+        <span class="font-medium">Due Date:</span>
+        <%= @task.due_date %>
+      </div>
+    </div>
+
+    <div class="flex space-x-4">
+      <.link navigate={~p"/tasks/#{@task}/edit"} class="text-blue-500 hover:text-blue-700">
+        Edit
+      </.link>
+      <.link navigate={~p"/tasks"} class="text-gray-500 hover:text-gray-700">
+        Back to tasks
+      </.link>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="max-w-md mx-auto mt-8">
+  <h1 class="text-2xl font-bold mb-4">New Task</h1>
+
+  <.simple_form :let={f} for={@changeset} action={~p"/tasks"}>
+    <.input field={f[:title]} type="text" label="Title" required />
+    <.input field={f[:description]} type="textarea" label="Description" />
+    <.input field={f[:due_date]} type="date" label="Due Date" />
+    <.input field={f[:completed]} type="checkbox" label="Completed" />
+    
+    <:actions>
+      <.button>Save Task</.button>
+    </:actions>
+  </.simple_form>
+
+  <.link navigate={~p"/tasks"} class="mt-4 inline-block text-blue-500">
+    Back to tasks
+  </.link>
+</div>

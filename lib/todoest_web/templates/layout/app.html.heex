@@ -1,0 +1,11 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <span class="navbar-item">Todoest</span>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-end">
+      <%= link "Tasks", to: Routes.task_path(@conn, :index), class: "navbar-item" %>
+      <%= link "New Task", to: Routes.task_path(@conn, :new), class: "navbar-item" %>
+    </div>
+  </div>
+</nav>

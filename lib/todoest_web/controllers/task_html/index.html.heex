@@ -1,0 +1,28 @@
+﻿<div class="container mx-auto px-4">
+  <h1 class="text-2xl font-bold my-4">Tasks</h1>
+  
+  <table class="table-auto w-full">
+    <thead>
+      <tr>
+        <th class="px-4 py-2">Title</th>
+        <th class="px-4 py-2">Status</th>
+        <th class="px-4 py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for task <- @tasks do %>
+        <tr>
+          <td class="border px-4 py-2"><%= task.title %></td>
+          <td class="border px-4 py-2"><%= if task.completed, do: "Done", else: "Pending" %></td>
+          <td class="border px-4 py-2">
+            <.link navigate={~p"/tasks/#{task.id}"} class="text-blue-500">View</.link>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <.link navigate={~p"/tasks/new"} class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded">
+    New Task
+  </.link>
+</div>
