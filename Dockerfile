@@ -36,13 +36,23 @@ RUN if [ -f "assets/package.json" ]; then \
 RUN MIX_ENV=prod mix compile && \
     MIX_ENV=prod mix release
 
-# Final image
-FROM debian:bullseye-slim
+# Final image - CHANGED TO bookworm for GLIBC 2.34+ support
+FROM debian:bookworm-slim
+
+# Install runtime deps - ADDED libstdc++6 explicitly
 RUN apt-get update && \
-    apt-get install -y openssl && \
+    apt-get install -y openssl libstdc++6 && \
     rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
+
 COPY --from=builder /app/_build/prod/rel/todoest ./
+
 ENV MIX_ENV=prod
 ENV PORT=4000
+
+# Health check for Railway
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:4000/health || exit 1
+
 CMD ["bin/todoest", "start"]
