@@ -1,14 +1,12 @@
 # Build stage
 FROM elixir:1.15.7 AS builder
 
-# Install build tools
+# Install build tools (including Node.js for assets)
 RUN apt-get update && \
-    apt-get install -y build-essential git && \
+    apt-get install -y build-essential git curl && \
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs && \
     apt-get clean
-
-# Install Node.js (required for assets)
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get install -y nodejs
 
 WORKDIR /app
 
@@ -20,26 +18,31 @@ RUN mix local.hex --force && \
 COPY mix.exs mix.lock ./
 RUN mix deps.get --only prod
 
-# Copy all files
-COPY . .
+# Copy production-necessary files
+COPY config config
+COPY lib lib
+COPY priv priv
 
-# Compile project
-RUN mix compile
+# Only copy assets if they exist
+COPY assets assets
+RUN if [ -f "assets/package.json" ]; then \
+    cd assets && \
+    npm install && \
+    cd .. && \
+    mix assets.deploy; \
+    fi
 
-# Build assets
-RUN mix assets.deploy
+# Compile project (production only)
+RUN MIX_ENV=prod mix compile && \
+    MIX_ENV=prod mix release
 
-# Release stage
-FROM elixir:1.15.7
-
+# Final image
+FROM debian:bullseye-slim
+RUN apt-get update && \
+    apt-get install -y openssl && \
+    rm -rf /var/lib/apt/lists/*
 WORKDIR /app
-
-# Copy compiled release
 COPY --from=builder /app/_build/prod/rel/todoest ./
-
-# Set environment
 ENV MIX_ENV=prod
 ENV PORT=4000
-
-# Run migrations and start
 CMD ["bin/todoest", "start"]
