@@ -1,9 +1,9 @@
-defmodule Todoest.MixProject do
+defmodule Helloworld.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :todoest,
+      app: :helloworld,
       version: "0.1.0",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -18,7 +18,7 @@ defmodule Todoest.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Todoest.Application, []},
+      mod: {Helloworld.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -32,18 +32,20 @@ defmodule Todoest.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.7.0"},
+      {:pbkdf2_elixir, "~> 2.0"},
+      {:phoenix, "~> 1.7.14"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.10"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 3.3"},
-      {:phoenix_live_reload, "~> 1.4", only: :dev},
-      {:phoenix_live_view, "~> 1.0.0"},
+      {:phoenix_html, "~> 4.1"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      # TODO bump on release to {:phoenix_live_view, "~> 1.0.0"},
+      {:phoenix_live_view, "~> 1.0.0-rc.1", override: true},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
-      {:heroicons, "~> 0.5.0",
+      {:heroicons,
        github: "tailwindlabs/heroicons",
        tag: "v2.1.1",
        sparse: "optimized",
@@ -51,10 +53,11 @@ defmodule Todoest.MixProject do
        compile: false,
        depth: 1},
       {:swoosh, "~> 1.5"},
+      {:gen_smtp, "~> 1.1"},
       {:finch, "~> 0.13"},
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
-      {:gettext, "~> 0.26"},
+      {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"}
@@ -74,10 +77,10 @@ defmodule Todoest.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["tailwind todoest", "esbuild todoest"],
+      "assets.build": ["tailwind helloworld", "esbuild helloworld"],
       "assets.deploy": [
-        "tailwind todoest --minify",
-        "esbuild todoest --minify",
+        "tailwind helloworld --minify",
+        "esbuild helloworld --minify",
         "phx.digest"
       ]
     ]

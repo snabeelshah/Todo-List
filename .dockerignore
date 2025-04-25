@@ -1,9 +1,0 @@
-.git
-_build
-deps
-node_modules
-*.log
-Dockerfile
-docker-compose*
-.env
-*.md
