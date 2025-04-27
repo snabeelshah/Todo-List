@@ -10,6 +10,7 @@ defmodule HelloworldWeb.Endpoint do
     signing_salt: "ih7xBYTG",
     same_site: "Lax"
   ]
+y
 
   socket "/live", Phoenix.LiveView.Socket,
     websocket: [connect_info: [session: @session_options]],
