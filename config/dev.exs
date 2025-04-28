@@ -11,7 +11,7 @@ config :helloworld, Helloworld.Repo,
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
-  
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
@@ -48,6 +48,7 @@ config :helloworld, HelloworldWeb.Endpoint,
 #       cipher_suite: :strong,
 #       keyfile: "priv/cert/selfsigned_key.pem",
 #       certfile: "priv/cert/selfsigned.pem"
+
 #     ],
 #
 # If desired, both `http:` and `https:` keys can be
