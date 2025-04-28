@@ -1,65 +1,65 @@
-<div class="flex min-h-screen items-center justify-center bg-[#D2B48C] px-4 sm:px-6 lg:px-8">
-  <div class="w-full max-w-md space-y-6 bg-white p-8 rounded-2xl shadow-lg">
+<div class="flex min-h-screen items-center justify-center bg-[#4B5320] px-4 sm:px-6 lg:px-8">
+  <div class="w-full max-w-md space-y-6 bg-[#2e2e2e] p-8 rounded-3xl shadow-2xl">
     <!-- Logo -->
     <div class="text-center">
-      <h2 class="text-4xl font-extrabold tracking-tight text-black">Log in</h2>
+      <h2 class="text-3xl font-extrabold tracking-tight text-white">🎯 Welcome to Nabeel's Todo</h2>
+      <p class="text-md text-gray-300 mt-2">Organize your world 📚</p>
     </div>
 
     <!-- Social Login Buttons -->
     <div class="space-y-3">
       <button
-        class="w-full flex items-center justify-center gap-2 border border-gray-300 font-bold rounded-lg py-3 px-4 transition-all hover:bg-gray-100">
+        class="w-full flex items-center justify-center gap-3 border border-gray-600 text-gray-200 font-semibold rounded-lg py-3 px-4 transition-all hover:bg-gray-700 hover:border-gray-500">
         <img src="https://th.bing.com/th/id/OIP.EhTMbGiYfYzQnWLgjZaoJAHaHa?rs=1&pid=ImgDetMain" alt="Google" class="h-6 w-6" />
-        Login with Google
+        Continue with Google
       </button>
       <button
-        class="w-full flex items-center justify-center gap-2 border border-gray-300 font-bold rounded-lg py-3 px-4 transition-all hover:bg-gray-100">
+        class="w-full flex items-center justify-center gap-3 border border-gray-600 text-gray-200 font-semibold rounded-lg py-3 px-4 transition-all hover:bg-gray-700 hover:border-gray-500">
         <img src="https://www.freeiconspng.com/uploads/facebook-png-icon-follow-us-facebook-1.png" alt="Facebook" class="h-6 w-6" />
-        Login with Facebook
+        Continue with Facebook
       </button>
     </div>
 
-    <!-- Or divider -->
+    <!-- Divider -->
     <div class="flex items-center justify-center">
-      <span class="text-sm text-gray-600">or</span>
+      <span class="text-sm text-gray-400">— or sign in with email —</span>
     </div>
 
+    <!-- Error Message -->
     <%= if @error_message do %>
-      <div class="text-red-600 text-sm text-center">
-        <%= @error_message %>
+      <div class="text-red-400 text-sm text-center mt-2">
+        ⚠️ <%= @error_message %>
       </div>
     <% end %>
 
     <!-- Form -->
     <.simple_form :let={f} for={@conn.params["user"]} as={:user} action={~p"/users/log_in"} class="space-y-4">
-      <.input field={f[:email]} type="email" label="Email" placeholder="Enter your email..." required class="rounded-lg" />
-      <.input field={f[:password]} type="password" label="Password" placeholder="Enter your password..." required class="rounded-lg" />
+      <.input field={f[:email]} type="email" label="📩 Email" placeholder="Enter your email" required class="rounded-lg bg-gray-800 text-white placeholder-gray-400" />
+      <.input field={f[:password]} type="password" label="🔒 Password" placeholder="Enter your password" required class="rounded-lg bg-gray-800 text-white placeholder-gray-400" />
 
       <:actions>
-        <.button class="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition-all"
+        <.button class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-all"
           phx-disable-with="Logging in...">
-          Log in
+          🚀 Log in
         </.button>
       </:actions>
     </.simple_form>
 
-    <!-- Links below -->
-    <div class="text-center text-sm">
-      <.link href={~p"/users/reset_password"} class="text-black hover:underline">Forgot your password?</.link>
+    <!-- Links -->
+    <div class="text-center text-sm mt-4">
+      <.link href={~p"/users/reset_password"} class="text-green-400 hover:underline">Forgot password? 🔑</.link>
     </div>
 
-    <div class="text-center text-xs text-gray-500">
-      you agree to our
-      <.link href="/terms" class="underline">Terms of Service</.link>
-      and
-      <.link href="/privacy" class="underline">Privacy Policy</.link>.
+    <div class="text-center text-xs text-gray-400 mt-2">
+      By logging in, you agree to our
+      <.link href="/terms" class="underline">Terms of Service</.link> and
+      <.link href="/privacy" class="underline">Privacy Policy</.link> 📜
     </div>
 
-    <div class="text-center text-sm">
-      Don’t have an account?
-      <.link navigate={~p"/users/register"} class="text-black font-bold hover:underline">
-
-        Sign up
+    <div class="text-center text-sm mt-4">
+      Don't have an account?
+      <.link navigate={~p"/users/register"} class="text-green-400 font-semibold hover:underline">
+        ✍️ Sign up
       </.link>
     </div>
   </div>
