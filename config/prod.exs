@@ -17,5 +17,14 @@ config :swoosh, local: false
 # Do not print debug messages in production
 config :logger, level: :info
 
+# Database configuration
+config :helloworld, Helloworld.Repo,
+  url: System.get_env("postgresql://postgres:jrpZXGGIiCoodKcpZQBVAiRVxlWyMGKr@shortline.proxy.rlwy.net:22917/railway
+"),
+  pool_size: 20,              # Increase pool size to handle more requests
+  queue_target: 5000,         # Increase queue time to 5 seconds
+  queue_interval: 1000,       # Check for available connections every second
+  ssl: true                   # Use SSL for the connection
+
 # Runtime production configuration, including reading
 # of environment variables, is done on config/runtime.exs.
