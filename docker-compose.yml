@@ -1,0 +1,28 @@
+services:
+  web:
+    image: elixir:latest
+    command: bash -c "mix deps.get && mix ecto.create && mix ecto.migrate && mix phx.server"
+    environment:
+      - MIX_ENV=dev
+      - DATABASE_URL=postgresql://postgres:postgres@db/postgres
+    ports:
+      - "4000:4000"
+    volumes:
+      - ".:/app"
+    depends_on:
+      - db
+    working_dir: /app
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db_data:
